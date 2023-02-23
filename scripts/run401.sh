@@ -1,6 +1,6 @@
 export LOC=401
 export DATA="./data/input.program"
-<<comment
+
 # Base
 rm ~/m5out/stats.txt
 export CS="--cpu-type=atomic --caches --l2cache --l1d_size=128kB --l1i_size=128kB --l2_size=1MB --l1d_assoc=2 --l1i_assoc=2 --l2_assoc=1 --cacheline_size=8"
@@ -57,8 +57,6 @@ export CS="--cpu-type=atomic --caches --l2cache --l1d_size=128kB --l1i_size=128k
 /usr/local/gem5/build/X86/gem5.opt -d ~/m5out /usr/local/gem5/configs/example/se.py -I 100000000 -c ./src/benchmark -o $DATA $CS
 mv ~/m5out/stats.txt ~/m5out/$LOC/SetAssoc10.txt
 
-comment
-
 #Set Assoc 11
 export CS="--cpu-type=atomic --caches --l2cache --l1d_size=128kB --l1i_size=128kB --l2_size=1MB --l1d_assoc=1 --l1i_assoc=1 --l2_assoc=1 --cacheline_size=8"
 /usr/local/gem5/build/X86/gem5.opt -d ~/m5out /usr/local/gem5/configs/example/se.py -I 100000000 -c ./src/benchmark -o $DATA $CS
@@ -73,8 +71,6 @@ mv ~/m5out/stats.txt ~/m5out/$LOC/SetAssoc12.txt
 export CS="--cpu-type=atomic --caches --l2cache --l1d_size=128kB --l1i_size=128kB --l2_size=1MB --l1d_assoc=1 --l1i_assoc=2 --l2_assoc=1 --cacheline_size=8"
 /usr/local/gem5/build/X86/gem5.opt -d ~/m5out /usr/local/gem5/configs/example/se.py -I 100000000 -c ./src/benchmark -o $DATA $CS
 mv ~/m5out/stats.txt ~/m5out/$LOC/SetAssoc13.txt
-
-<<comment
 
 #Block Size 1
 export CS="--cpu-type=atomic --caches --l2cache --l1d_size=128kB --l1i_size=128kB --l2_size=1MB --l1d_assoc=2 --l1i_assoc=2 --l2_assoc=1 --cacheline_size=8"
@@ -95,8 +91,6 @@ mv ~/m5out/stats.txt ~/m5out/$LOC/BlockSize3.txt
 export CS="--cpu-type=atomic --caches --l2cache --l1d_size=128kB --l1i_size=128kB --l2_size=1MB --l1d_assoc=2 --l1i_assoc=2 --l2_assoc=1 --cacheline_size=64"
 /usr/local/gem5/build/X86/gem5.opt -d ~/m5out /usr/local/gem5/configs/example/se.py -I 100000000 -c ./src/benchmark -o $DATA $CS
 mv ~/m5out/stats.txt ~/m5out/$LOC/BlockSize4.txt
-
-comment
 
 #Size Alloc 1
 export CS="--cpu-type=atomic --caches --l2cache --l1d_size=128kB --l1i_size=128kB --l2_size=1MB --l1d_assoc=2 --l1i_assoc=2 --l2_assoc=1 --cacheline_size=8"
