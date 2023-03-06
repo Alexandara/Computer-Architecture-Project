@@ -298,56 +298,56 @@ def generateGraphs(cpidata):
     # Set Same
     setSameTitle = "CPI for Set Associativity of both L1 Data and Instruction Caches"
     setSameXAxis = "Set Associativity for L1 Data and Instruction Caches"
-    plot(b401SetSameX, b401SetSame, setSameTitle, setSameXAxis, offset401, "../graphs/401SameSetAlloc.png")
-    plot(b429SetSameX, b429SetSame, setSameTitle, setSameXAxis, offset429, "../graphs/429SameSetAlloc.png")
-    plot(b456SetSameX, b456SetSame, setSameTitle, setSameXAxis, offset456, "../graphs/456SameSetAlloc.png")
-    plot(b458SetSameX, b458SetSame, setSameTitle, setSameXAxis, offset458, "../graphs/458SameSetAlloc.png")
-    plot(b470SetSameX, b470SetSame, setSameTitle, setSameXAxis, offset470, "../graphs/470SameSetAlloc.png")
+    plot(b401SetSameX, b401SetSame, setSameTitle, setSameXAxis, offset401, "../graphs/401/401SameSetAlloc.png")
+    plot(b429SetSameX, b429SetSame, setSameTitle, setSameXAxis, offset429, "../graphs/429/429SameSetAlloc.png")
+    plot(b456SetSameX, b456SetSame, setSameTitle, setSameXAxis, offset456, "../graphs/456/456SameSetAlloc.png")
+    plot(b458SetSameX, b458SetSame, setSameTitle, setSameXAxis, offset458, "../graphs/458/458SameSetAlloc.png")
+    plot(b470SetSameX, b470SetSame, setSameTitle, setSameXAxis, offset470, "../graphs/470/470SameSetAlloc.png")
 
     # SetD
     setDTitle = "CPI for Set Associativity of L1 Data Cache"
     setDXAxis = "Set Associativity for L1 Data Cache"
-    plot(b470SetDX, b470SetD, setDTitle, setDXAxis, offset470, "../graphs/470DataSetAlloc.png")
-    plot(b458SetDX, b458SetD, setDTitle, setDXAxis, offset458, "../graphs/458DataSetAlloc.png")
-    plot(b456SetDX, b456SetD, setDTitle, setDXAxis, offset456, "../graphs/456DataSetAlloc.png")
-    plot(b429SetDX, b429SetD, setDTitle, setDXAxis, offset429, "../graphs/429DataSetAlloc.png")
-    plot(b401SetDX, b401SetD, setDTitle, setDXAxis, offset401, "../graphs/401DataSetAlloc.png")
+    plot(b470SetDX, b470SetD, setDTitle, setDXAxis, offset470, "../graphs/470/470DataSetAlloc.png")
+    plot(b458SetDX, b458SetD, setDTitle, setDXAxis, offset458, "../graphs/458/458DataSetAlloc.png")
+    plot(b456SetDX, b456SetD, setDTitle, setDXAxis, offset456, "../graphs/456/456DataSetAlloc.png")
+    plot(b429SetDX, b429SetD, setDTitle, setDXAxis, offset429, "../graphs/429/429DataSetAlloc.png")
+    plot(b401SetDX, b401SetD, setDTitle, setDXAxis, offset401, "../graphs/401/401DataSetAlloc.png")
 
     # SetI
     setITitle = "CPI for Set Associativity of L1 Instruction Cache"
     setIXAxis = "Set Associativity for L1 Instruction Cache"
-    plot(b470SetIX, b470SetI, setITitle, setIXAxis, offset470, "../graphs/470InstructionSetAlloc.png")
-    plot(b458SetIX, b458SetI, setITitle, setIXAxis, offset458, "../graphs/458InstructionSetAlloc.png")
-    plot(b456SetIX, b456SetI, setITitle, setIXAxis, offset456, "../graphs/456InstructionSetAlloc.png")
-    plot(b429SetIX, b429SetI, setITitle, setIXAxis, offset429, "../graphs/429InstructionSetAlloc.png")
-    plot(b401SetIX, b401SetI, setITitle, setIXAxis, offset401, "../graphs/401InstructionSetAlloc.png")
+    plot(b470SetIX, b470SetI, setITitle, setIXAxis, offset470, "../graphs/470/470InstructionSetAlloc.png")
+    plot(b458SetIX, b458SetI, setITitle, setIXAxis, offset458, "../graphs/458/458InstructionSetAlloc.png")
+    plot(b456SetIX, b456SetI, setITitle, setIXAxis, offset456, "../graphs/456/456InstructionSetAlloc.png")
+    plot(b429SetIX, b429SetI, setITitle, setIXAxis, offset429, "../graphs/429/429InstructionSetAlloc.png")
+    plot(b401SetIX, b401SetI, setITitle, setIXAxis, offset401, "../graphs/401/401InstructionSetAlloc.png")
 
     # Block Size
     setBlockTitle = "CPI for Block Size of both L1 Caches"
     setBlockXAxis = "Cache Block Size"
-    plot(b401BlockX, b401Block, setBlockTitle, setBlockXAxis, offset401, "../graphs/401BlockSize.png")
-    plot(b429BlockX, b429Block, setBlockTitle, setBlockXAxis, offset429, "../graphs/429BlockSize.png")
-    plot(b456BlockX, b456Block, setBlockTitle, setBlockXAxis, offset456, "../graphs/456BlockSize.png")
-    plot(b458BlockX, b458Block, setBlockTitle, setBlockXAxis, offset458, "../graphs/458BlockSize.png")
-    plot(b470BlockX, b470Block, setBlockTitle, setBlockXAxis, offset470, "../graphs/470BlockSize.png")
+    plot(b401BlockX, b401Block, setBlockTitle, setBlockXAxis, offset401, "../graphs/401/401BlockSize.png")
+    plot(b429BlockX, b429Block, setBlockTitle, setBlockXAxis, offset429, "../graphs/429/429BlockSize.png")
+    plot(b456BlockX, b456Block, setBlockTitle, setBlockXAxis, offset456, "../graphs/456/456BlockSize.png")
+    plot(b458BlockX, b458Block, setBlockTitle, setBlockXAxis, offset458, "../graphs/458/458BlockSize.png")
+    plot(b470BlockX, b470Block, setBlockTitle, setBlockXAxis, offset470, "../graphs/470/470BlockSize.png")
 
     # Size Allocation Data
     setSizeDataTitle = "CPI for Size Allocation for L1 Data Cache Given 128kB Instruction Cache"
     setSizeDataXAxis = "L1 Data Cache Size (kB)"
-    plot(b470AllocDX, b470AllocD, setSizeDataTitle, setSizeDataXAxis, offset470, "../graphs/470DataSizeAllocation.png")
-    plot(b458AllocDX, b458AllocD, setSizeDataTitle, setSizeDataXAxis, offset458, "../graphs/458DataSizeAllocation.png")
-    plot(b456AllocDX, b456AllocD, setSizeDataTitle, setSizeDataXAxis, offset456, "../graphs/456DataSizeAllocation.png")
-    plot(b429AllocDX, b429AllocD, setSizeDataTitle, setSizeDataXAxis, offset429, "../graphs/429DataSizeAllocation.png")
-    plot(b401AllocDX, b401AllocD, setSizeDataTitle, setSizeDataXAxis, offset401, "../graphs/401DataSizeAllocation.png")
+    plot(b470AllocDX, b470AllocD, setSizeDataTitle, setSizeDataXAxis, offset470, "../graphs/470/470DataSizeAllocation.png")
+    plot(b458AllocDX, b458AllocD, setSizeDataTitle, setSizeDataXAxis, offset458, "../graphs/458/458DataSizeAllocation.png")
+    plot(b456AllocDX, b456AllocD, setSizeDataTitle, setSizeDataXAxis, offset456, "../graphs/456/456DataSizeAllocation.png")
+    plot(b429AllocDX, b429AllocD, setSizeDataTitle, setSizeDataXAxis, offset429, "../graphs/429/429DataSizeAllocation.png")
+    plot(b401AllocDX, b401AllocD, setSizeDataTitle, setSizeDataXAxis, offset401, "../graphs/401/401DataSizeAllocation.png")
 
     # Size Allocation Instruction
     setSizeInstructionTitle = "CPI for Size Allocation for L1 Instruction Cache Given 128kB Data Cache"
     setSizeInstructionXAxis = "L1 Instruction Cache Size (kB)"
-    plot(b470AllocIX, b470AllocI, setSizeInstructionTitle, setSizeInstructionXAxis, offset470, "../graphs/470InstructionSizeAllocation.png")
-    plot(b458AllocIX, b458AllocI, setSizeInstructionTitle, setSizeInstructionXAxis, offset458, "../graphs/458InstructionSizeAllocation.png")
-    plot(b456AllocIX, b456AllocI, setSizeInstructionTitle, setSizeInstructionXAxis, offset456, "../graphs/456InstructionSizeAllocation.png")
-    plot(b429AllocIX, b429AllocI, setSizeInstructionTitle, setSizeInstructionXAxis, offset429, "../graphs/429InstructionSizeAllocation.png")
-    plot(b401AllocIX, b401AllocI, setSizeInstructionTitle, setSizeInstructionXAxis, offset401, "../graphs/401InstructionSizeAllocation.png")
+    plot(b470AllocIX, b470AllocI, setSizeInstructionTitle, setSizeInstructionXAxis, offset470, "../graphs/470/470InstructionSizeAllocation.png")
+    plot(b458AllocIX, b458AllocI, setSizeInstructionTitle, setSizeInstructionXAxis, offset458, "../graphs/458/458InstructionSizeAllocation.png")
+    plot(b456AllocIX, b456AllocI, setSizeInstructionTitle, setSizeInstructionXAxis, offset456, "../graphs/456/456InstructionSizeAllocation.png")
+    plot(b429AllocIX, b429AllocI, setSizeInstructionTitle, setSizeInstructionXAxis, offset429, "../graphs/429/429InstructionSizeAllocation.png")
+    plot(b401AllocIX, b401AllocI, setSizeInstructionTitle, setSizeInstructionXAxis, offset401, "../graphs/401/401InstructionSizeAllocation.png")
 
 
 
