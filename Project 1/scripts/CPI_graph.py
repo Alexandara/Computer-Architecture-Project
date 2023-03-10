@@ -64,6 +64,7 @@ def readCPI(filename):
                     cpidata.append(CPIData(row[0], row[1], float(row[2]), l1d_assoc=1, l1i_assoc=2, l2_assoc=1))
             elif row[1][0] == "S" and row[1][1] == "i":
                 number = row[1][9]
+                number2 = row[1][10]
                 if number == "1" and number2 == ".":
                     cpidata.append(CPIData(row[0], row[1], float(row[2]), l1d_size=128, l1i_size=128))
                 elif number == "2":
@@ -161,7 +162,7 @@ def generateGraphs(cpidata):
     b470AllocI = []
     b470AllocIX = []
     for cpi in cpidata:
-        if cpi.bm == "401Data":
+        if cpi.bm == "401":
             if cpi.exp[0] == 'B' and cpi.exp[1] == 'l':
                 b401Block.append(cpi.cpi)
                 b401BlockX.append(cpi.size)
