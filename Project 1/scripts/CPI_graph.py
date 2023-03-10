@@ -80,7 +80,7 @@ def readCPI(filename):
                     cpidata.append(CPIData(row[0], row[1], float(row[2]), l1d_size=128, l1i_size=16))
     return cpidata
 
-def plot(X: object, Y: object, title: object, xLabel: object, offset: object, name: object) -> object:
+def plot(X: object, Y: object, title: object, xLabel: object, offset: object, name: object, addCoordinates=0) -> object:
     plt.scatter(X, Y)
     plt.ylabel("CPI")
     plt.title(title)
@@ -89,6 +89,9 @@ def plot(X: object, Y: object, title: object, xLabel: object, offset: object, na
     plt.ylim((min(Y) - offset), (max(Y) + offset))
     y_formatter = matplotlib.ticker.ScalarFormatter(useOffset=False)
     plt.gca().yaxis.set_major_formatter(y_formatter)
+    if addCoordinates == 1:
+        for i, j in zip(X, Y):
+            plt.text(i, j, '({}, {})'.format(i, j))
     plt.savefig(name, bbox_inches='tight')
     plt.close()
 

@@ -1,6 +1,6 @@
 import os
 import csv
-data_directories = ["401Data", "429Data", "456Data", "458Data", "470Data"]
+data_directories = ["../401", "../429", "../456", "../458", "../470"]
 
 # Fields of interest in data files
 DL1_MISS_NUM_SRT  = "system.cpu.dcache.overall_miss_rate::total"
