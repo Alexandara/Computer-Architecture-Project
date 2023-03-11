@@ -25,7 +25,7 @@ def readCPI(filename):
             if row[1][0] == 'B' and row[1][1] == 'l':
                 number = row[1][9]
                 if number == "1":
-                    cpidata.append(CPIData(row[0],row[1],float(row[2]), size = 8:))
+                    cpidata.append(CPIData(row[0],row[1],float(row[2]), size = 8))
                 elif number == "2":
                     cpidata.append(CPIData(row[0], row[1], float(row[2]), size=16))
                 elif number == "3":
