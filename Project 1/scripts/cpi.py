@@ -5,7 +5,7 @@ data_directories = ["401Data", "429Data", "456Data", "458Data", "470Data"]
 # Fields of interest in data files
 DL1_MISS_NUM_SRT  = "system.cpu.dcache.overall_miss_rate::total"
 IL1_MISS_NUM_SRT = "system.cpu.icache.overall_miss_rate::total"
-L2_MISS_NUM_SRT = "system.l2.overall_miss_rate::total"
+L2_MISS_NUM_SRT = "system.l2.overall_misses::total"
 TOTAL_NUM_INST_SRT = "sim_insts"
 
 data_list = [["Directory", "File", "CPI"]]
