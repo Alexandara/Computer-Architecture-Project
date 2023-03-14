@@ -3,6 +3,10 @@ import shlex
 import cpi
 import CPI_Read_In
 import csv
+#from pathlib import Path
+import os
+import os.path
+import time
 
 def cost(cpi):
     return 1
@@ -19,11 +23,11 @@ def evaluate(list):
 
 def optimize(projectlocation):
     #l1d_assoc=0, l1i_assoc=0, l2_assoc=0, size=0, l1d_size=0, l1i_size=0
-    l1d_assoc_options = ["1","2","4","8","16"]
-    l1i_assoc_options = ["1","2","4","8","16"]
-    size_options = ["8", "16", "32", "64"]
-    l1d_size_options = ["16kB", "32kB", "64kB", "128kB"]
-    l1i_size_options = ["16kB", "32kB", "64kB", "128kB"]
+    l1d_assoc_options = ["1"]#,"2","4","8","16"]
+    l1i_assoc_options = ["1"]#,"2","4","8","16"]
+    size_options = ["8"]#, "16", "32", "64"]
+    l1d_size_options = ["16kB"]#, "32kB", "64kB", "128kB"]
+    l1i_size_options = ["16kB"]#, "32kB", "64kB", "128kB"]
     benchmark_data_options = [["401.bzip2","./data/input.program"],
                               ["429.mcf","./data/inp.in"],
                               ["456.hmmer", "./data/bombesin.hmm.new"],
@@ -54,11 +58,22 @@ def optimize(projectlocation):
                                           "--l1i_assoc=" + l1i_assoc + " " \
                                           "--l2_assoc=1 " \
                                           "--cacheline_size=" + size
-                            location = projectlocation + "/" + benchmark[0]
-                            #command = shlex.split(commandtext)
-                            subprocess.Popen(commandtext,cwd=location)
+                            location = projectlocation + "/" + benchmark[0] + "/"
+                            command = shlex.split(commandtext)
+                            print(commandtext)
+			    p = subprocess.Popen(commandtext, shell=True,cwd=location)
+			    p.wait()
+			    #path = Path(location)
+			    while not os.path.exists('~/m5out/stats.txt'):
+			    	# Bad practice
+				time.sleep(10)
+			    while os.path.getsize('~/m5out/stats.txt') == 0:
+			    	# Still bad practice
+				time.sleep(10)
+			    print("Post Command")
                             cpival = cpi.calculatecpisingle("~/m5out/stats.txt")
                             costval = cost(cpival)
+			    os.remove(location)
                             if benchmark[0] == "401.bzip2":
                                 min401.append(CPI_Read_In.CPIData(benchmark[0], "NA", cpival,
                                                                   l1d_assoc=l1d_assoc, l1i_assoc=l1i_assoc, l2_assoc="1MB",
@@ -96,4 +111,4 @@ def optimize(projectlocation):
 
 
 
-optimize("~/Project1_SPEC")
+optimize("/people/cs/a/art150530/Project1_SPEC")
