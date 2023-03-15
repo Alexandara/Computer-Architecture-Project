@@ -63,9 +63,9 @@ def calculatecpisingle(filename):
     with open(filename, 'r') as file:
         data = file.read().splitlines()
         for row in data:
-            if (len(row) == 0):
+	    if (len(row) == 0):
                 continue
-            sim_stats = row.split(maxsplit=2)
+            sim_stats = row.split()#maxsplit=2)
             if (sim_stats[0] == IL1_MISS_NUM_SRT):
                 il1_miss_num = float(sim_stats[1])
             if (sim_stats[0] == DL1_MISS_NUM_SRT):

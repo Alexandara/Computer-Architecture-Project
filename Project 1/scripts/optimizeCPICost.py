@@ -23,11 +23,11 @@ def evaluate(list):
 
 def optimize(projectlocation):
     #l1d_assoc=0, l1i_assoc=0, l2_assoc=0, size=0, l1d_size=0, l1i_size=0
-    l1d_assoc_options = ["1"]#,"2","4","8","16"]
-    l1i_assoc_options = ["1"]#,"2","4","8","16"]
-    size_options = ["8"]#, "16", "32", "64"]
-    l1d_size_options = ["16kB"]#, "32kB", "64kB", "128kB"]
-    l1i_size_options = ["16kB"]#, "32kB", "64kB", "128kB"]
+    l1d_assoc_options = ["1","2","4","8","16"]
+    l1i_assoc_options = ["1","2","4","8","16"]
+    size_options = ["8", "16", "32", "64"]
+    l1d_size_options = ["16kB", "32kB", "64kB", "128kB"]
+    l1i_size_options = ["16kB", "32kB", "64kB", "128kB"]
     benchmark_data_options = [["401.bzip2","./data/input.program"],
                               ["429.mcf","./data/inp.in"],
                               ["456.hmmer", "./data/bombesin.hmm.new"],
@@ -45,7 +45,7 @@ def optimize(projectlocation):
                     for l1d_size in l1d_size_options:
                         for l1i_size in l1i_size_options:
                             commandtext = "/usr/local/gem5/build/X86/gem5.opt " \
-                                          "-d ~/m5out /usr/local/gem5/configs/example/se.py " \
+                                          "-d /people/cs/a/art150530/m5out /usr/local/gem5/configs/example/se.py " \
                                           "-I 100000000 " \
                                           "-c ./src/benchmark " \
                                           "-o " + benchmark[1] +" " \
@@ -64,16 +64,16 @@ def optimize(projectlocation):
 			    p = subprocess.Popen(commandtext, shell=True,cwd=location)
 			    p.wait()
 			    #path = Path(location)
-			    while not os.path.exists('~/m5out/stats.txt'):
+			    while not os.path.exists('/people/cs/a/art150530/m5out/stats.txt'):
 			    	# Bad practice
 				time.sleep(10)
-			    while os.path.getsize('~/m5out/stats.txt') == 0:
+			    while os.path.getsize('/people/cs/a/art150530/m5out/stats.txt') == 0:
 			    	# Still bad practice
 				time.sleep(10)
 			    print("Post Command")
-                            cpival = cpi.calculatecpisingle("~/m5out/stats.txt")
+                            cpival = cpi.calculatecpisingle("/people/cs/a/art150530/m5out/stats.txt")
                             costval = cost(cpival)
-			    os.remove(location)
+			    os.remove('/people/cs/a/art150530/m5out/stats.txt')
                             if benchmark[0] == "401.bzip2":
                                 min401.append(CPI_Read_In.CPIData(benchmark[0], "NA", cpival,
                                                                   l1d_assoc=l1d_assoc, l1i_assoc=l1i_assoc, l2_assoc="1MB",
@@ -94,7 +94,7 @@ def optimize(projectlocation):
                                 min470.append(CPI_Read_In.CPIData(benchmark[0], "NA", cpival,
                                                                   l1d_assoc=l1d_assoc, l1i_assoc=l1i_assoc, l2_assoc="1MB",
                                                                   size=size, l1d_size=l1d_size, l1i_size=l1i_size, cost=costval))
-    with open('../data/optimization.csv', 'w', newline='') as file:
+    with open('../data/optimization.csv', 'w') as file:
         writer = csv.writer(file)
         writer.writerow(["Benchmark", "Experiment", "CPI", "Data Associativity", "Instruction Associativity",
                 "L2 Associativity", "Block Size", "Data Size", "Instruction Size", "Cost"])
