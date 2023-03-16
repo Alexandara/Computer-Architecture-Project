@@ -76,3 +76,5 @@ def calculatecpisingle(filename):
                 total_num_inst = float(sim_stats[1])
     cpi = 1 + ((il1_miss_num + dl1_numm_num) * 6 + l2_miss_num * 50) / total_num_inst
     return cpi
+
+print(calculatecpisingle("/Users/alexistudor/Desktop/Projects/Computer-Architecture-Project/Project 1/401Data/BlockSize1.txt"))

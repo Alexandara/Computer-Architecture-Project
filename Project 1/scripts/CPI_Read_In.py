@@ -6,7 +6,7 @@ Copyright and Licensing: GNU @ Alexis Tudor
 import csv
 
 class CPIData:
-    def __init__(self, benchmark, experimentName, cpi, l1d_assoc=0, l1i_assoc=0, l2_assoc=0, size=0, l1d_size=0, l1i_size=0, cost=0):
+    def __init__(self, benchmark, experimentName, cpi, l1d_assoc=0, l1i_assoc=0, l2_assoc=0, size=0, l1d_size=0, l1i_size=0, cost=0, value=0):
         self.bm = benchmark
         self.exp = experimentName
         self.cpi = cpi
@@ -17,6 +17,7 @@ class CPIData:
         self.l1d_size = l1d_size
         self.l1i_size = l1i_size
         self.cost = cost
+        self.value = value
 
     def toArray(self):
         return [self.bm, self.exp, self.cpi, self.l1d_assoc, self.l1i_assoc,
