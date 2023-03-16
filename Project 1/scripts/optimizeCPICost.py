@@ -4,6 +4,7 @@ import cpi
 import CPI_Read_In
 import csv
 import os
+
 import time
 
 def cost(cpi):
@@ -48,7 +49,7 @@ def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0)):
                   "--l2_assoc=1 " \
                   "--cacheline_size=" + size_options[init[4]]
     location = projectlocation + "/" + benchmark[0]
-    subprocess.Popen(commandtext,shell=True,cwd=location)
+    p = subprocess.Popen(commandtext,shell=True,cwd=location)
     p.wait()
     # path = Path(location)
     while not os.path.exists('/people/cs/a/art150530/m5out/stats.txt'):
@@ -91,36 +92,21 @@ benchmark_data_options = [["401.bzip2","./data/input.program"],
 for benchmark in benchmark_data_options:
     cpithing = optimize(benchmark)
     if benchmark[0] == "401.bzip2":
-        min401.append(CPI_Read_In.CPIData(benchmark[0], "NA", cpival,
-                                          l1d_assoc=l1d_assoc, l1i_assoc=l1i_assoc, l2_assoc="1MB",
-                                          size=size, l1d_size=l1d_size, l1i_size=l1i_size, cost=costval))
+        min401 = cpithing
     elif benchmark[0] == "429.mcf":
-        min429.append(CPI_Read_In.CPIData(benchmark[0], "NA", cpival,
-                                          l1d_assoc=l1d_assoc, l1i_assoc=l1i_assoc, l2_assoc="1MB",
-                                          size=size, l1d_size=l1d_size, l1i_size=l1i_size, cost=costval))
+        min429 = cpithing
     elif benchmark[0] == "456.hmmer":
-        min456.append(CPI_Read_In.CPIData(benchmark[0], "NA", cpival,
-                                          l1d_assoc=l1d_assoc, l1i_assoc=l1i_assoc, l2_assoc="1MB",
-                                          size=size, l1d_size=l1d_size, l1i_size=l1i_size, cost=costval))
+        min456 = cpithing
     elif benchmark[0] == "458.sjeng":
-        min458.append(CPI_Read_In.CPIData(benchmark[0], "NA", cpival,
-                                          l1d_assoc=l1d_assoc, l1i_assoc=l1i_assoc, l2_assoc="1MB",
-                                          size=size, l1d_size=l1d_size, l1i_size=l1i_size, cost=costval))
+        min458 = cpithing
     elif benchmark[0] == "470.lbm":
-        min470.append(CPI_Read_In.CPIData(benchmark[0], "NA", cpival,
-                                          l1d_assoc=l1d_assoc, l1i_assoc=l1i_assoc, l2_assoc="1MB",
-                                          size=size, l1d_size=l1d_size, l1i_size=l1i_size, cost=costval))
+        min470 = cpithing
 with open('../data/optimization.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(["Benchmark", "Experiment", "CPI", "Data Associativity", "Instruction Associativity",
             "L2 Associativity", "Block Size", "Data Size", "Instruction Size", "Cost"])
-    best = evaluate(min401)
-    writer.writerow(best.toArray())
-    best = evaluate(min429)
-    writer.writerow(best.toArray())
-    best = evaluate(min456)
-    writer.writerow(best.toArray())
-    best = evaluate(min458)
-    writer.writerow(best.toArray())
-    best = evaluate(min470)
-    writer.writerow(best.toArray())
+    writer.writerow(min401.toArray())
+    writer.writerow(min429.toArray())
+    writer.writerow(min456.toArray())
+    writer.writerow(min458.toArray())
+    writer.writerow(min470.toArray())
