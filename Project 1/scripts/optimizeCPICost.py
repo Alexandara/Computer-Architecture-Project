@@ -1,5 +1,4 @@
 import subprocess
-import shlex
 import cpi
 import CPI_Read_In
 import csv
@@ -7,7 +6,7 @@ import os
 
 import time
 
-def cost(cpi):
+def cost(cpival):
     # cost per KB
     # cost per association
     cost_weight = {
@@ -20,13 +19,13 @@ def cost(cpi):
         "cacheline_size_cost": .8,
     }
 
-    l1d_size_cost_total         = cost_weight["l1d_size_cost"]          * cpi.l1d_size
-    l1i_size_cost_total         = cost_weight["l1i_size_cost"]          * cpi.l1i_size
+    l1d_size_cost_total         = cost_weight["l1d_size_cost"]          * cpival.l1d_size
+    l1i_size_cost_total         = cost_weight["l1i_size_cost"]          * cpival.l1i_size
     l2_size_cost_total          = cost_weight["l2_size_cost"]           * 1000 
-    l1d_assoc_cost_total        = cost_weight["l1d_assoc_cost"]         * cpi.l1d_assoc
-    l1i_assoc_cost_total        = cost_weight["l1i_assoc_cost"]         * cpi.l1i_assoc
-    l2_assoc_cost_total         = cost_weight["l2_assoc_cost"]          * cpi.l2_assoc
-    cacheline_size_cost_total   = cost_weight["cacheline_size_cost"]    * cpi.size
+    l1d_assoc_cost_total        = cost_weight["l1d_assoc_cost"]         * cpival.l1d_assoc
+    l1i_assoc_cost_total        = cost_weight["l1i_assoc_cost"]         * cpival.l1i_assoc
+    l2_assoc_cost_total         = cost_weight["l2_assoc_cost"]          * cpival.l2_assoc
+    cacheline_size_cost_total   = cost_weight["cacheline_size_cost"]    * cpival.size
 
     cost =  l1d_size_cost_total + \
             l1i_size_cost_total + \
@@ -39,13 +38,25 @@ def cost(cpi):
     return cost
 
 def evaluate(i):
-    i.value = i.cpi * i.cost
+    if i.bm == "401.bzip2":
+        c = i.cpi/5.191292009
+    elif i.bm == "429.mcf":
+        c = i.cpi/1.0240455
+    elif i.bm == "456.hmmer":
+        c = i.cpi/1.151417501
+    elif i.bm == "458.sjeng":
+        c = i.cpi/17.58480152
+    elif i.bm == "470.lbm":
+        c = i.cpi/10.21103247
+    else:
+        c = i.cpi
+    i.value = c * (i.cost/671)
     return i
 
-def minimum(list):
+def minimum(listcpi):
     min = 1000000000000000000
     best = None
-    for i in list:
+    for i in listcpi:
         if i.value < min:
             min = i.value
             best = i
@@ -90,7 +101,7 @@ def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0,value=10000
     costval = cost(cpival)
     cpiData = CPI_Read_In.CPIData(benchmark[0], "NA", cpival,
                                     l1d_assoc=l1d_assoc_options[init[2]], l1i_assoc=l1i_assoc_options[init[3]],
-                                    l2_assoc="1MB",
+                                    l2_assoc="1",
                                     size=size_options[init[4]], l1d_size=l1d_size_options[init[0]],
                                     l1i_size=l1i_size_options[init[1]], cost=costval)
     cpiData = evaluate(cpiData)
@@ -114,29 +125,16 @@ def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0,value=10000
                         optimize(benchmark, init=[newinit[0],newinit[1],newinit[2],newinit[3],newinit[4]], min=cpiData)])
 
 
-benchmark_data_options = [["401.bzip2","./data/input.program"],
-                              ["429.mcf","./data/inp.in"],
-                              ["456.hmmer", "./data/bombesin.hmm.new"],
-                              ["458.sjeng", "./data/test.txt"],
-                              ["470.lbm", "./data/lbm.in"]]
-for benchmark in benchmark_data_options:
+def run(num):
+    benchmark = [["401.bzip2","./data/input.program"],
+                                  ["429.mcf","./data/inp.in"],
+                                  ["456.hmmer", "./data/bombesin.hmm.new"],
+                                  ["458.sjeng", "./data/test.txt"],
+                                  ["470.lbm", "./data/lbm.in"]]
     cpithing = optimize(benchmark)
-    if benchmark[0] == "401.bzip2":
-        min401 = cpithing
-    elif benchmark[0] == "429.mcf":
-        min429 = cpithing
-    elif benchmark[0] == "456.hmmer":
-        min456 = cpithing
-    elif benchmark[0] == "458.sjeng":
-        min458 = cpithing
-    elif benchmark[0] == "470.lbm":
-        min470 = cpithing
-with open('../data/optimization.csv', 'w') as file:
-    writer = csv.writer(file)
-    writer.writerow(["Benchmark", "Experiment", "CPI", "Data Associativity", "Instruction Associativity",
-            "L2 Associativity", "Block Size", "Data Size", "Instruction Size", "Cost"])
-    writer.writerow(min401.toArray())
-    writer.writerow(min429.toArray())
-    writer.writerow(min456.toArray())
-    writer.writerow(min458.toArray())
-    writer.writerow(min470.toArray())
+    with open('../data/optimization'+benchmark[num][0]+'.csv', 'w') as file:
+        writer = csv.writer(file)
+        writer.writerow(["Benchmark", "Experiment", "CPI", "Data Associativity", "Instruction Associativity",
+                "L2 Associativity", "Block Size", "Data Size", "Instruction Size", "Cost"])
+        writer.writerow(cpithing.toArray())
+
