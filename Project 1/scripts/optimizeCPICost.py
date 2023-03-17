@@ -98,12 +98,13 @@ def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0,value=10000
         # Still bad practice
         time.sleep(10)
     cpival = cpi.calculatecpisingle("/people/cs/a/art150530/m5out/stats.txt")
-    costval = cost(cpi)
     cpiData = CPI_Read_In.CPIData(benchmark[0], "NA", cpival,
                                     l1d_assoc=l1d_assoc_options[init[2]], l1i_assoc=l1i_assoc_options[init[3]],
                                     l2_assoc="1",
                                     size=size_options[init[4]], l1d_size=l1d_size_options[init[0]],
-                                    l1i_size=l1i_size_options[init[1]], cost=costval)
+                                    l1i_size=l1i_size_options[init[1]])
+    costval = cost(cpiData)
+    cpiData.cost = costval
     cpiData = evaluate(cpiData)
     newinit = []
     for val in init:
