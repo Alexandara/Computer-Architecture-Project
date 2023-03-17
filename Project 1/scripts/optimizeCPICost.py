@@ -68,8 +68,8 @@ def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0,value=10000
     if init is None:
         init = [3,3,4,4,3]
     projectlocation = "/people/cs/a/art150530/Project1_SPEC"
-    l1d_size_options = ["16kB", "32kB", "64kB", "128kB"]
-    l1i_size_options = ["16kB", "32kB", "64kB", "128kB"]
+    l1d_size_options = ["16", "32", "64", "128"]
+    l1i_size_options = ["16", "32k", "64", "128"]
     l1d_assoc_options = ["1","2","4","8","16"]
     l1i_assoc_options = ["1","2","4","8","16"]
     size_options = ["8", "16", "32", "64"]
@@ -80,8 +80,8 @@ def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0,value=10000
                   "-o " + benchmark[1] +" " \
                   "--cpu-type=atomic " \
                   "--caches --l2cache " \
-                  "--l1d_size=" + l1d_size_options[init[0]] + " " \
-                  "--l1i_size=" + l1i_size_options[init[1]] + " " \
+                  "--l1d_size=" + l1d_size_options[init[0]] + "kB " \
+                  "--l1i_size=" + l1i_size_options[init[1]] + "kB " \
                   "--l2_size=1MB " \
                   "--l1d_assoc=" + l1d_assoc_options[init[2]] + " " \
                   "--l1i_assoc=" + l1i_assoc_options[init[3]] + " " \
@@ -99,10 +99,10 @@ def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0,value=10000
         time.sleep(10)
     cpival = cpi.calculatecpisingle("/people/cs/a/art150530/m5out/stats.txt")
     cpiData = CPI_Read_In.CPIData(benchmark[0], "NA", cpival,
-                                    l1d_assoc=l1d_assoc_options[init[2]], l1i_assoc=l1i_assoc_options[init[3]],
-                                    l2_assoc="1",
-                                    size=size_options[init[4]], l1d_size=l1d_size_options[init[0]],
-                                    l1i_size=l1i_size_options[init[1]])
+                                    l1d_assoc=int(l1d_assoc_options[init[2]]), l1i_assoc=int(l1i_assoc_options[init[3]]),
+                                    l2_assoc=1,
+                                    size=int(size_options[init[4]]), l1d_size=int(l1d_size_options[init[0]]),
+                                    l1i_size=int(l1i_size_options[init[1]]))
     costval = cost(cpiData)
     cpiData.cost = costval
     cpiData = evaluate(cpiData)
