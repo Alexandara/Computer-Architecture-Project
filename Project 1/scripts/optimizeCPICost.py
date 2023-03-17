@@ -24,7 +24,7 @@ def minimum(list):
     return best
 
 
-def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0)):
+def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0,value=10000000000000000000)):
     #l1d_assoc=0, l1i_assoc=0, l2_assoc=0, size=0, l1d_size=0, l1i_size=0
     if init is None:
         init = [3,3,4,4,3]
@@ -60,18 +60,20 @@ def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0)):
         time.sleep(10)
     cpival = cpi.calculatecpisingle("/people/cs/a/art150530/m5out/stats.txt")
     costval = cost(cpival)
-    cpiData = CPI_Read_In.CPIData("Unknown", "NA", cpival,
+    cpiData = CPI_Read_In.CPIData(benchmark[0], "NA", cpival,
                                     l1d_assoc=l1d_assoc_options[init[2]], l1i_assoc=l1i_assoc_options[init[3]],
                                     l2_assoc="1MB",
                                     size=size_options[init[4]], l1d_size=l1d_size_options[init[0]],
                                     l1i_size=l1i_size_options[init[1]], cost=costval)
-    evaluate(cpiData)
+    cpiData = evaluate(cpiData)
     newinit = []
     for val in init:
         if val == 0:
             newinit.append(0)
         else:
             newinit.append(val-1)
+    print(cpiData.value)
+    print(cpiData.cpi)
     if cpiData.value > min.value:
         return min
     elif init == [0,0,0,0,0]:
@@ -101,7 +103,7 @@ for benchmark in benchmark_data_options:
         min458 = cpithing
     elif benchmark[0] == "470.lbm":
         min470 = cpithing
-with open('../data/optimization.csv', 'w', newline='') as file:
+with open('../data/optimization.csv', 'w') as file:
     writer = csv.writer(file)
     writer.writerow(["Benchmark", "Experiment", "CPI", "Data Associativity", "Instruction Associativity",
             "L2 Associativity", "Block Size", "Data Size", "Instruction Size", "Cost"])
