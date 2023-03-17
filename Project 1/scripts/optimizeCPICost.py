@@ -131,7 +131,7 @@ def run(num):
                                   ["456.hmmer", "./data/bombesin.hmm.new"],
                                   ["458.sjeng", "./data/test.txt"],
                                   ["470.lbm", "./data/lbm.in"]]
-    cpithing = optimize(benchmark)
+    cpithing = optimize(benchmark[num])
     with open('../data/optimization'+benchmark[num][0]+'.csv', 'w') as file:
         writer = csv.writer(file)
         writer.writerow(["Benchmark", "Experiment", "CPI", "Data Associativity", "Instruction Associativity",
