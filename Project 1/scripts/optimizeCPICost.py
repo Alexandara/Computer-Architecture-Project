@@ -8,7 +8,35 @@ import os
 import time
 
 def cost(cpi):
-    return 1
+    # cost per KB
+    # cost per association
+    cost_weight = {
+        "l1d_size_cost": .75,
+        "l1i_size_cost": .75,
+        "l2_size_cost": .25,
+        "l1d_assoc_cost": 5,
+        "l1i_assoc_cost": 5,
+        "l2_assoc_cost": 8,
+        "cacheline_size_cost": .8,
+    }
+
+    l1d_size_cost_total         = cost_weight["l1d_size_cost"]          * cpi.l1d_size
+    l1i_size_cost_total         = cost_weight["l1i_size_cost"]          * cpi.l1i_size
+    l2_size_cost_total          = cost_weight["l2_size_cost"]           * 1000 
+    l1d_assoc_cost_total        = cost_weight["l1d_assoc_cost"]         * cpi.l1d_assoc
+    l1i_assoc_cost_total        = cost_weight["l1i_assoc_cost"]         * cpi.l1i_assoc
+    l2_assoc_cost_total         = cost_weight["l2_assoc_cost"]          * cpi.l2_assoc
+    cacheline_size_cost_total   = cost_weight["cacheline_size_cost"]    * cpi.size
+
+    cost =  l1d_size_cost_total + \
+            l1i_size_cost_total + \
+            l2_size_cost_total + \
+            l1d_assoc_cost_total + \
+            l1i_assoc_cost_total + \
+            l2_assoc_cost_total + \
+            cacheline_size_cost_total
+   
+    return cost
 
 def evaluate(i):
     i.value = i.cpi * i.cost
