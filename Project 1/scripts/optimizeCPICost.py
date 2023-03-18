@@ -50,7 +50,7 @@ def evaluate(i):
         c = i.cpi/10.21103247
     else:
         c = i.cpi
-    i.value = c * (i.cost/671)
+    i.value = c * (i.cost/650)
     return i
 
 def minimum(listcpi):
@@ -69,7 +69,7 @@ def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0,value=10000
         init = [3,3,4,4,3]
     projectlocation = "/people/cs/a/art150530/Project1_SPEC"
     l1d_size_options = ["16", "32", "64", "128"]
-    l1i_size_options = ["16", "32k", "64", "128"]
+    l1i_size_options = ["16", "32", "64", "128"]
     l1d_assoc_options = ["1","2","4","8","16"]
     l1i_assoc_options = ["1","2","4","8","16"]
     size_options = ["8", "16", "32", "64"]
