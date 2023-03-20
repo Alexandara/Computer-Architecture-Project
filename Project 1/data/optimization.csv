@@ -1,0 +1,6 @@
+Benchmark,Experiment,CPI,Data Associativity,Instruction Associativity,L2 Associativity,Block Size,Data Size,Instruction Size,Cost
+Unknown,NA,2.11092250219522,16,16,1MB,64,128kB,128kB,1
+Unknown,NA,1.04600700016392,16,16,1MB,64,128kB,128kB,1
+Unknown,NA,1.00318250003582,16,16,1MB,64,128kB,128kB,1
+Unknown,NA,5.14848150584676,16,16,1MB,64,128kB,128kB,1
+Unknown,NA,3.451249402092958,16,16,1MB,64,128kB,128kB,1
