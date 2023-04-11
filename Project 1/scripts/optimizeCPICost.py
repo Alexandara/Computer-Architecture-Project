@@ -37,7 +37,7 @@ def cost(cpival):
    
     return cost
 
-def evaluate(i):
+def evaluate(i, costbalance=50):
     if i.bm == "401.bzip2":
         c = i.cpi/5.191292009
     elif i.bm == "429.mcf":
@@ -50,7 +50,7 @@ def evaluate(i):
         c = i.cpi/10.21103247
     else:
         c = i.cpi
-    i.value = c * (i.cost/650)
+    i.value = c * (i.cost/(costbalance+550))
     return i
 
 def minimum(listcpi):
@@ -63,7 +63,7 @@ def minimum(listcpi):
     return best
 
 
-def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0,value=10000000000000000000)):
+def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0,value=10000000000000000000),costval=600):
     #l1d_assoc=0, l1i_assoc=0, l2_assoc=0, size=0, l1d_size=0, l1i_size=0
     if init is None:
         init = [3,3,4,4,3]
@@ -105,7 +105,7 @@ def optimize(benchmark, init=None, min=CPI_Read_In.CPIData("", "", 0,value=10000
                                     l1i_size=int(l1i_size_options[init[1]]))
     costval = cost(cpiData)
     cpiData.cost = costval
-    cpiData = evaluate(cpiData)
+    cpiData = evaluate(cpiData, costval=costval)
     newinit = []
     for val in init:
         if val == 0:
@@ -132,7 +132,7 @@ def run(num):
                                   ["456.hmmer", "./data/bombesin.hmm.new"],
                                   ["458.sjeng", "./data/test.txt"],
                                   ["470.lbm", "./data/lbm.in"]]
-    cpithing = optimize(benchmark[num])
+    cpithing = optimize(benchmark[num],costval=50)
     with open('../data/optimization'+benchmark[num][0]+'.csv', 'w') as file:
         writer = csv.writer(file)
         writer.writerow(["Benchmark", "Experiment", "CPI", "Data Associativity", "Instruction Associativity",
